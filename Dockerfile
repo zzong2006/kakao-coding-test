@@ -7,8 +7,14 @@ RUN apt-get -y update
 RUN apt-get -y install git
 RUN apt-get -y install nano
 RUN apt-get -y install openssh-client openssh-server
+RUN apt-get -y install locales 
 RUN ssh-keygen -t rsa -P '' -f ~/.ssh/id_dsa
 RUN cat ~/.ssh/id_dsa.pub >> ~/.ssh/authorized_keys
+RUN /etc/init.d/ssh start
+
+# Korean Setting
+ENV LANGUAGE ko_KR.UTF-8 
+ENV LANG ko_KR.UTF-8
 
 # 4. clone repository
 RUN git clone https://github.com/zzong2006/kakao-coding-test /home/kakao-coding-test
@@ -41,5 +47,9 @@ ENV HDFS_DATANODE_USER root
 ENV HDFS_SECONDARYNAMENODE_USER root
 ENV YARN_RESOURCEMANAGER_USER root
 ENV YARN_NODEMANAGER_USER root
+RUN mkdir $HADOO_HOME/temp
+RUN mkdir $HADOO_HOME/namenode_temp
+RUN mkdir $HADOO_HOME/datanode_temp
+
 
 RUN git config --global user.email "zzong2006@gmail.com"
