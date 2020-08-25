@@ -1,0 +1,13 @@
+<?xml version=”1.0″?>
+<?xml-stylesheet type=”text/xsl” href=”configuration.xsl”?>
+<configuration>
+
+<property>
+
+<name>mapred.child.java.opts</name>
+
+<value>-Xmx200m -Dfile.encoding=UTF-8 -Dfile.client.encoding=UTF-8 -Dclient.encoding.override=UTF-8</value>
+
+</property>
+
+</configuration>
