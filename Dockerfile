@@ -50,11 +50,11 @@ ENV YARN_RESOURCEMANAGER_USER root
 ENV YARN_NODEMANAGER_USER root
 
 RUN mkdir /usr/local/hadoop/temp
-RUN mkdir /usr/local/hadoop/namenode_temp
-RUN mkdir /usr/local/hadoop/datanode_temp
-RUN cp kakao-coding-test/utils/hdfs-site.xml /usr/local/hadoop/etc/hadoop/hdfs-site.xml
-RUN cp kakao-coding-test/utils/core-site.xml /usr/local/hadoop/etc/hadoop/core-site.xml
-RUN cp kakao-coding-test/utils/mapred-site.xml /usr/local/hadoop/etc/hadoop/mapred-site.xml
-RUN cp kakao-coding-test/utils/hadoop-env.sh /usr/local/hadoop/etc/hadoop/hadoop-env.sh
+RUN mkdir /usr/local/hadoop/namenode_home
+RUN mkdir /usr/local/hadoop/datanode_home
+RUN cp /home/kakao-coding-test/utils/hdfs-site.xml /usr/local/hadoop/etc/hadoop/hdfs-site.xml
+RUN cp /home/kakao-coding-test/utils/core-site.xml /usr/local/hadoop/etc/hadoop/core-site.xml
+RUN cp /home/kakao-coding-test/utils/mapred-site.xml /usr/local/hadoop/etc/hadoop/mapred-site.xml
+RUN cp /home/kakao-coding-test/utils/hadoop-env.sh /usr/local/hadoop/etc/hadoop/hadoop-env.sh
 
 RUN git config --global user.email "zzong2006@gmail.com"
