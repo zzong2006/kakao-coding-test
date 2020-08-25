@@ -6,6 +6,9 @@ RUN apt-get -y update
 # 2. Install git and nano
 RUN apt-get -y install git
 RUN apt-get -y install nano
+RUN apt-get -y install openssh-client openssh-server
+RUN ssh-keygen -t rsa -P '' -f ~/.ssh/id_dsa
+RUN cat ~/.ssh/id_dsa.pub >> ~/.ssh/authorized_keys
 
 # 4. clone repository
 RUN git clone https://github.com/zzong2006/kakao-coding-test /home/kakao-coding-test
@@ -33,6 +36,10 @@ RUN tar xvfz hadoop-3.2.1.tar.gz
 RUN mv hadoop-3.2.1 /usr/local/hadoop
 ENV HADOOP_HOME /usr/local/hadoop
 ENV PATH $HADOOP_HOME/bin:$PATH
-
+ENV HDFS_NAMENODE_USER root
+ENV HDFS_DATANODE_USER root
+ENV HDFS_SECONDARYNAMENODE_USER root
+ENV YARN_RESOURCEMANAGER_USER root
+ENV YARN_NODEMANAGER_USER root
 
 RUN git config --global user.email "zzong2006@gmail.com"
