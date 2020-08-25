@@ -40,6 +40,7 @@ RUN apt-get -y install pdsh
 RUN wget http://apache.mirror.cdnetworks.com/hadoop/common/hadoop-3.2.1/hadoop-3.2.1.tar.gz
 RUN tar xvfz hadoop-3.2.1.tar.gz
 RUN mv hadoop-3.2.1 /usr/local/hadoop
+
 ENV HADOOP_HOME /usr/local/hadoop
 ENV PATH $HADOOP_HOME/bin:$PATH
 ENV HDFS_NAMENODE_USER root
@@ -47,9 +48,13 @@ ENV HDFS_DATANODE_USER root
 ENV HDFS_SECONDARYNAMENODE_USER root
 ENV YARN_RESOURCEMANAGER_USER root
 ENV YARN_NODEMANAGER_USER root
-RUN mkdir $HADOO_HOME/temp
-RUN mkdir $HADOO_HOME/namenode_temp
-RUN mkdir $HADOO_HOME/datanode_temp
 
+RUN mkdir /usr/local/hadoop/temp
+RUN mkdir /usr/local/hadoop/namenode_temp
+RUN mkdir /usr/local/hadoop/datanode_temp
+RUN cp kakao-coding-test/utils/hdfs-site.xml /usr/local/hadoop/etc/hadoop/hdfs-site.xml
+RUN cp kakao-coding-test/utils/core-site.xml /usr/local/hadoop/etc/hadoop/core-site.xml
+RUN cp kakao-coding-test/utils/mapred-site.xml /usr/local/hadoop/etc/hadoop/mapred-site.xml
+RUN cp kakao-coding-test/utils/hadoop-env.sh /usr/local/hadoop/etc/hadoop/hadoop-env.sh
 
 RUN git config --global user.email "zzong2006@gmail.com"

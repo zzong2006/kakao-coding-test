@@ -1,8 +1,11 @@
 
 <configuration>
+<property>
+<name>mapred.job.tracker</name>
+<value>localhost:9001</value>
+</property>
 
 <property>
-
 <name>mapred.child.java.opts</name>
 
 <value>-Xmx200m -Dfile.encoding=UTF-8 -Dfile.client.encoding=UTF-8 -Dclient.encoding.override=UTF-8</value>
