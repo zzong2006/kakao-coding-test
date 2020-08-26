@@ -19,7 +19,6 @@ import java.util.UUID;
 // If you would prefer that JUnit Jupiter execute all test methods on the same test instance
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class SQLToParquetTest {
-
     protected String hdfsUri;
     protected Configuration conf;
     private File testDir;
@@ -54,12 +53,16 @@ public class SQLToParquetTest {
 
     @Test
     public void testRandom() throws Exception{
+        // Make random output file name
         String tempOutput = MessageFormat.format("{0}_{1}", "Output", UUID.randomUUID());
         String tempTextOutput = MessageFormat.format("{0}_{1}", "OutputText", UUID.randomUUID());
         String TesthdfsUri = "hdfs://localhost:9000";
 
+        // Convert MySQL data to Parquet data
         String[] args = {"/tmp/jobJSON.json"};
         int res = ToolRunner.run(new SQLToParquet(), args);
+
+        // Convert Parquet data to Text data
         String[] args2 = {"/tmp/jobJSON.json", tempTextOutput};
         int res2 = ToolRunner.run(conf, new ParquetToText(), args2);
 
