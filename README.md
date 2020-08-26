@@ -1,5 +1,7 @@
 # kakao-coding-test
-This is kakao coding test made by Woosung Hwang.
+This is kakao coding test solutions made by Woosung Hwang.
+
+* **코딩 테스트의 문제 1,2,3,4에 대한 솔루션은 각각 problem 01, 02, 03, 04 폴더에 대응됨**
 
 * JDK : 1.8 version, Parquet : 버전 1.9 version, Hadoop : 3.2.1
 * MySQL : equal or more than 8.0.0 version (`WITH` clause 사용을 위해 필수)
@@ -13,11 +15,11 @@ This is kakao coding test made by Woosung Hwang.
 
 * 주요 class 
 
-  * SQLToParquet : 주어진 MySQL 데이터를 Parquet 데이터로 변환
+  * `SQLToParquet` : 주어진 MySQL 데이터를 Parquet 데이터로 변환
     * 변환 결과 : `problem04/parquet_output/`
     * 실행 시 출력 결과 : `problem04/kakaotest04_SQLToParquet_실행_결과.output`
     * 소스 경로 : `problem04/kakaotest04/src/main/java/com/kakaotest/sqlparquet/SQLToParquet.java`
-  * ParquetToText : 변환된 Parquet 데이터를 Text 데이터 변환 (올바르게 변환되었는지 확인용)
+  * `ParquetToText` : 변환된 Parquet 데이터를 Text 데이터 변환 (올바르게 변환되었는지 확인용)
     * 변환 결과 : `problem04/text_output/`
     * 실행 시 출력 결과 : `problem04/kakaotest04_ParquetToText_실행_결과.output`
     * 소스 경로 : `problem04/kakaotest04/src/main/java/com/kakaotest/sqlparquet/ParquetToText.java`
