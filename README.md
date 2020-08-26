@@ -6,7 +6,7 @@ This is kakao coding test solutions made by Woosung Hwang.
 * JDK : 1.8 version, Parquet : 버전 1.9 version, Hadoop : 3.2.1
 * MySQL : equal or more than 8.0.0 version (`WITH` clause 사용을 위해 필수)
 
-## 문제 4 (problem4/kakaotest04)
+## 문제 4 (`problem04/kakaotest04`)
 
 * JAVA 프로그램 :  `problem04/kakaotest04/out/artifacts/kakaotest04_jar/kakaotest04.jar`
 
