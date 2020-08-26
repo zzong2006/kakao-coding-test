@@ -1,11 +1,11 @@
-WITH RECURSIVE TOPS  AS (
+WITH RECURSIVE TOPS  AS (           -- make 1 to n range
 	SELECT 1 AS n
 	UNION ALL
 	SELECT n + 1 FROM TOPS  WHERE n < 10
-), DAY_MENU_LOG (DAYOFWEEK, LOG_ID, USR_NO, MENU_NM) AS (
+), DAY_MENU_LOG (DAYOFWEEK, LOG_ID, USR_NO, MENU_NM) AS (          -- convert log_timestamp to weekday
 	SELECT WEEKDAY(STR_TO_DATE(LOG_TKTM, '%Y%m%d%H%i%S')) , ML.LOG_ID, ML.USR_NO, ML.MENU_NM 
 	FROM MENU_LOG AS ML WHERE MENU_NM != 'logout' AND MENU_NM != 'login'
-), RANK_DAY_AND_LOG (DAYOFWEEK, CONTENTS, DAYRANK) AS (
+), RANK_DAY_AND_LOG (DAYOFWEEK, CONTENTS, DAYRANK) AS (            -- count access number of menu and rank 
 	SELECT DAYOFWEEK, Concat(MENU_NM , '(', COUNT(LOG_ID) ,')') AS CONTENTS , ROW_NUMBER() OVER(
 	PARTITION BY
 		DAYOFWEEK
@@ -16,6 +16,7 @@ WITH RECURSIVE TOPS  AS (
 	GROUP BY DAYOFWEEK, MENU_NM
 ) 
 
+-- make summary of top 10 access number based on weekday
 SELECT TOPS.n as Top, MON.Monday, TUE.Tuesday, WES.Wednesday, THU.Thursday, FRI.Friday, SAT.Saturday, SUN.Sunday FROM TOPS
 LEFT JOIN 
 	(SELECT TOPS.n as n, IFNULL(CONTENTS, '-') AS Monday 
