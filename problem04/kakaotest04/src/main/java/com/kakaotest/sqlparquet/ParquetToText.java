@@ -1,6 +1,5 @@
 package com.kakaotest.sqlparquet;
 
-
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.conf.Configured;
 import org.apache.hadoop.fs.Path;
@@ -17,8 +16,9 @@ import org.apache.parquet.hadoop.example.ExampleInputFormat;
 
 import java.io.IOException;
 
+// ParquetToText class : Do job which converts Parquet data to Text data and save them into HDFS
 public class ParquetToText extends Configured implements Tool {
-
+    // Mapper Function (Note : only do map)
     public static class ParquetToTextMapper extends Mapper<Void, Group, NullWritable, Text> {
         @Override
         protected void map(Void key, Group value, Context context)
@@ -26,12 +26,14 @@ public class ParquetToText extends Configured implements Tool {
             context.write(NullWritable.get(), new Text(value.toString()));
         }
     }
+
     @Override
     public int run(String[] strings) throws Exception {
         if(strings.length != 2) {
-            System.err.println("Usage: SQLParquetReader <Job_json_file_used_in_SQLParquetWriter> <output>");
+            System.err.println("Usage: ParquetToText <Job_json_file_used_in_SQLParquetWriter> <output>");
             System.exit(2);
         }
+        // parsing json file to get output path of SQLToParquet job
         ParsingJSON jsonInfo = new ParsingJSON(strings[0]);
         Configuration conf = new Configuration();
         Job job = Job.getInstance(conf);
@@ -40,7 +42,7 @@ public class ParquetToText extends Configured implements Tool {
         FileOutputFormat.setOutputPath(job, new Path(strings[1]));
 
         job.setMapperClass(ParquetToTextMapper.class);
-        job.setNumReduceTasks(0);
+        job.setNumReduceTasks(0);       // Since this job only convert parquet to text file, make only to do map, not reduce.
 
         job.setInputFormatClass(ExampleInputFormat.class);
 
@@ -49,6 +51,8 @@ public class ParquetToText extends Configured implements Tool {
 
         return job.waitForCompletion(true) ? 0 : 1;
     }
+
+    // For local test
     public static void main(String[] args) throws Exception {
         int exitCode = ToolRunner.run(new ParquetToText(), args);
         System.exit(exitCode);

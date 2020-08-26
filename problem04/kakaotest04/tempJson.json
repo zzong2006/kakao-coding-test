@@ -1,0 +1,25 @@
+[
+  {
+    "MENULOG_ETL_Job" : {
+      "concurrency": 3,
+      "source" : {
+        "mysql_server" : "jdbc:mysql://localhost",
+        "mysql_port" : "3306",
+        "serverTimezone" : "UTC",
+        "database" : "KAKAOBANK",
+        "user" : "root",
+        "password" : "db171!",
+        "table" : "MENU_LOG",
+        "fieldName" : "LOG_TKTM, LOG_ID, USR_NO, MENU_NM"
+      },
+      "transform" : {
+        "schema" : "message Pair {\n required binary logTimestamp (UTF8);\n required binary logID (UTF8);\n required binary userNo (UTF8);\n  required binary menuName (UTF8);\n }"
+      },
+      "target" : {
+        "hdfs_server" : "hdfs://localhost",
+        "nameNode_port" : "9000",
+        "outputPath" : "/parquet_output"
+      }
+    }
+  }
+]

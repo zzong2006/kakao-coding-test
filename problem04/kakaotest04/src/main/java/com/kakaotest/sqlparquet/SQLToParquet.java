@@ -21,32 +21,21 @@ import org.apache.parquet.schema.MessageTypeParser;
 
 import java.io.IOException;
 
+
+// SQLToParquet Class : Do job which converts MySQL data to Parquet data and save them into HDFS
 public class SQLToParquet extends Configured implements Tool {
-    private String driverClass = "com.mysql.cj.jdbc.Driver";
-    private String dbUrl = "jdbc:mysql://localhost:3306/KAKAOBANK?serverTimezone=UTC";
-    private String userName = "root";
-    private String passwd = "db171!";
-    private Path outputPath = new Path("/tmp/test003");
-
-    private static MessageType schema = MessageTypeParser.parseMessageType(
-            "message Pair {\n" +
-                    " required binary logTimestamp (UTF8);\n" +
-                    " required binary logID (UTF8);\n" +
-                    " required binary userNo;\n" +
-                    " required binary menuName;\n" +
-                    "}"
-    );
-
+    private String driverClass = "com.mysql.cj.jdbc.Driver";        // Need jdbc driver for accessing the MySQL server
+    private static MessageType schema;
     @Override
     public int run(String[] strings) throws Exception {
         if(strings.length != 1) {
-            System.err.println("Usage: SQLParquetWriter <Job_json_file>");
+            System.err.println("Usage: SQLToParquet <Job_json_file>");
             System.exit(2);
         }
 
-        ParsingJSON jsonInfo = new ParsingJSON(strings[0]);
+        ParsingJSON jsonInfo = new ParsingJSON(strings[0]);         // parsing json file
         Configuration conf = new Configuration();
-        DBConfiguration.configureDB(conf, driverClass,
+        DBConfiguration.configureDB(conf, driverClass,              // Access the MySQL Server
                 jsonInfo.getInfo().get("mysqlURL"),
                 jsonInfo.getInfo().get("userName"),
                 jsonInfo.getInfo().get("passWord"));
@@ -54,32 +43,40 @@ public class SQLToParquet extends Configured implements Tool {
         Job job = Job.getInstance(conf);
         job.setJarByClass(getClass());
 
-        MultithreadedMapper.setMapperClass(job, customMapper.class);
+        MultithreadedMapper.setMapperClass(job, customMapper.class);            // Register mapper class
+        // If the json file contains concurrency value more than 1, then do multi-threading map
+        // Warning : ParquetWriter could not be thread-safe.
         MultithreadedMapper.setNumberOfThreads(job, (int)jsonInfo.getConcurrency());
         job.setMapperClass(MultithreadedMapper.class);
-        job.setNumReduceTasks(0);
+        job.setNumReduceTasks(0);                 // Since this job only convert SQL to parquet file, make only to do map, not reduce.
 
-        job.setMapOutputKeyClass(Void.class);
-        job.setMapOutputValueClass(Group.class);
+        job.setMapOutputKeyClass(Void.class);       // not necessary
+        job.setMapOutputValueClass(Group.class);    // Group : parquet logical types
 
-        job.setOutputKeyClass(Void.class);
-        job.setOutputValueClass(Group.class);
+        job.setOutputKeyClass(Void.class);          // not necessary
+        job.setOutputValueClass(Group.class);       // Group : parquet logical types
 
-        job.setInputFormatClass(DBInputFormat.class);
-        job.setOutputFormatClass(ExampleOutputFormat.class);
-        ExampleOutputFormat.setSchema(job, MessageTypeParser.parseMessageType(jsonInfo.getInfo().get("schema")));
+        job.setInputFormatClass(DBInputFormat.class);       // Input : MySQL
+        job.setOutputFormatClass(ExampleOutputFormat.class);        // Output : Parquet Format
 
+        schema = MessageTypeParser.parseMessageType(jsonInfo.getInfo().get("schema"));      // Parsing the schema
+        ExampleOutputFormat.setSchema(job, schema);
+
+        // Save to HDFS
         FileOutputFormat.setOutputPath(job, new Path(jsonInfo.getInfo().get("hdfsURL") + jsonInfo.getInfo().get("outputPath")));
+        // Just SELECT * From MENU_LOG
         DBInputFormat.setInput(job, CustomWritable.class, jsonInfo.getInfo().get("tableName"), null,
                 null, jsonInfo.getInfo().get("fieldNames").split(","));
         return job.waitForCompletion(true) ? 0 : 1;
     }
 
+    // Mapper Function (Note : only do map)
     public static class customMapper extends Mapper<LongWritable, CustomWritable, Void, Group>{
         private GroupFactory groupFactory = new SimpleGroupFactory(schema);
 
         @Override
         protected void map(LongWritable key, CustomWritable value, Context context) throws IOException, InterruptedException {
+            // Make Group type parquet variable
             Group groupIns = groupFactory.newGroup().append("logTimestamp",value.getLogTimestamp())
                     .append("logID",value.getLogID())
                     .append("userNo",value.getUserNumber())
@@ -88,6 +85,7 @@ public class SQLToParquet extends Configured implements Tool {
         }
     }
 
+    // For local test
     public static void main(String[] args) throws Exception {
         int res = ToolRunner.run(new Configuration(), new SQLToParquet(), args);
         System.exit(res);

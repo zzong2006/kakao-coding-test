@@ -11,12 +11,16 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
+// CustomWritable class : Writable class used by Mapper
 public class CustomWritable implements Writable, DBWritable {
+    // Declare four variables based on MENU_LOG table
     private String logTimestamp;
     private String logID;
     private String userNumber;
     private String menuName;
 
+    // Note : this Writable read and write UTF type data
+    // (It could be happened that Korean is not written properly as output format)
     @Override
     public void write(DataOutput dataOutput) throws IOException {
         dataOutput.writeUTF(logTimestamp);

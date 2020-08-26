@@ -1,0 +1,104 @@
+2020-08-26 20:38:52,818 INFO impl.MetricsConfig: Loaded properties from hadoop-metrics2.properties
+2020-08-26 20:38:52,849 INFO impl.MetricsSystemImpl: Scheduled Metric snapshot period at 10 second(s).
+2020-08-26 20:38:52,849 INFO impl.MetricsSystemImpl: JobTracker metrics system started
+2020-08-26 20:38:52,949 WARN mapreduce.JobResourceUploader: Hadoop command-line option parsing not performed. Implement the Tool interface and execute your application with ToolRunner to remedy this.
+2020-08-26 20:38:52,951 WARN mapreduce.JobResourceUploader: No job jar file set.  User classes may not be found. See Job or Job#setJar(String).
+2020-08-26 20:38:53,011 INFO input.FileInputFormat: Total input files to process : 1
+2020-08-26 20:38:53,011 INFO hadoop.ParquetInputFormat: Total input paths to process : 1
+2020-08-26 20:38:53,023 INFO mapreduce.JobSubmitter: number of splits:1
+2020-08-26 20:38:53,087 INFO mapreduce.JobSubmitter: Submitting tokens for job: job_local2116349495_0001
+2020-08-26 20:38:53,087 INFO mapreduce.JobSubmitter: Executing with tokens: []
+2020-08-26 20:38:53,153 INFO mapreduce.Job: The url to track the job: http://localhost:8080/
+2020-08-26 20:38:53,154 INFO mapreduce.Job: Running job: job_local2116349495_0001
+2020-08-26 20:38:53,155 INFO mapred.LocalJobRunner: OutputCommitter set in config null
+2020-08-26 20:38:53,159 INFO output.FileOutputCommitter: File Output Committer Algorithm version is 2
+2020-08-26 20:38:53,160 INFO output.FileOutputCommitter: FileOutputCommitter skip cleanup _temporary folders under output directory:false, ignore cleanup failures: false
+2020-08-26 20:38:53,160 INFO mapred.LocalJobRunner: OutputCommitter is org.apache.hadoop.mapreduce.lib.output.FileOutputCommitter
+2020-08-26 20:38:53,183 INFO mapred.LocalJobRunner: Waiting for map tasks
+2020-08-26 20:38:53,184 INFO mapred.LocalJobRunner: Starting task: attempt_local2116349495_0001_m_000000_0
+2020-08-26 20:38:53,196 INFO output.FileOutputCommitter: File Output Committer Algorithm version is 2
+2020-08-26 20:38:53,196 INFO output.FileOutputCommitter: FileOutputCommitter skip cleanup _temporary folders under output directory:false, ignore cleanup failures: false
+2020-08-26 20:38:53,205 INFO mapred.Task:  Using ResourceCalculatorProcessTree : [ ]
+2020-08-26 20:38:53,207 INFO mapred.MapTask: Processing split: ParquetInputSplit{part: hdfs://localhost:9000/parquet_output/part-m-00000.parquet start: 0 end: 18914 length: 18914 hosts: []}
+2020-08-26 20:38:53,274 INFO sasl.SaslDataTransferClient: SASL encryption trust check: localHostTrusted = false, remoteHostTrusted = false
+SLF4J: Class path contains multiple SLF4J bindings.
+SLF4J: Found binding in [file:/tmp/hadoop-unjar752941557533978750/shaded/parquet/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: Found binding in [jar:file:/home/woosung/kakao-coding-test/problem04/kakaotest04/out/artifacts/kakaotest04_jar/kakaotest04.jar!/shaded/parquet/org/slf4j/impl/StaticLoggerBinder.class]
+SLF4J: See http://www.slf4j.org/codes.html#multiple_bindings for an explanation.
+SLF4J: Actual binding is of type [shaded.parquet.org.slf4j.helpers.NOPLoggerFactory]
+2020-08-26 20:38:53,426 INFO hadoop.InternalParquetRecordReader: RecordReader initialized will read a total of 649 records.
+2020-08-26 20:38:53,426 INFO hadoop.InternalParquetRecordReader: at row 0. reading next block
+2020-08-26 20:38:53,441 INFO hadoop.InternalParquetRecordReader: block read in memory in 15 ms. row count = 649
+2020-08-26 20:38:53,619 INFO mapred.LocalJobRunner:
+2020-08-26 20:38:53,637 INFO sasl.SaslDataTransferClient: SASL encryption trust check: localHostTrusted = false, remoteHostTrusted = false
+2020-08-26 20:38:53,672 INFO mapred.Task: Task:attempt_local2116349495_0001_m_000000_0 is done. And is in the process of committing
+2020-08-26 20:38:53,675 INFO mapred.LocalJobRunner:
+2020-08-26 20:38:53,675 INFO mapred.Task: Task attempt_local2116349495_0001_m_000000_0 is allowed to commit now
+2020-08-26 20:38:53,690 INFO output.FileOutputCommitter: Saved output of task 'attempt_local2116349495_0001_m_000000_0' to hdfs://localhost:9000/outputText
+2020-08-26 20:38:53,691 INFO mapred.LocalJobRunner: map
+2020-08-26 20:38:53,691 INFO mapred.Task: Task 'attempt_local2116349495_0001_m_000000_0' done.
+2020-08-26 20:38:53,696 INFO mapred.Task: Final Counters for attempt_local2116349495_0001_m_000000_0: Counters: 24
+        File System Counters
+                FILE: Number of bytes read=178
+                FILE: Number of bytes written=522018
+                FILE: Number of read operations=0
+                FILE: Number of large read operations=0
+                FILE: Number of write operations=0
+                HDFS: Number of bytes read=18910
+                HDFS: Number of bytes written=48878
+                HDFS: Number of read operations=10
+                HDFS: Number of large read operations=0
+                HDFS: Number of write operations=3
+                HDFS: Number of bytes read erasure-coded=0
+        Map-Reduce Framework
+                Map input records=649
+                Map output records=649
+                Input split bytes=122
+                Spilled Records=0
+                Failed Shuffles=0
+                Merged Map outputs=0
+                GC time elapsed (ms)=0
+                Total committed heap usage (bytes)=775421952
+        File Input Format Counters
+                Bytes Read=18910
+        File Output Format Counters
+                Bytes Written=48878
+        parquet
+                bytesread=18406
+                bytestotal=18406
+                timeread=15
+2020-08-26 20:38:53,696 INFO mapred.LocalJobRunner: Finishing task: attempt_local2116349495_0001_m_000000_0
+2020-08-26 20:38:53,697 INFO mapred.LocalJobRunner: map task executor complete.
+2020-08-26 20:38:54,157 INFO mapreduce.Job: Job job_local2116349495_0001 running in uber mode : false
+2020-08-26 20:38:54,157 INFO mapreduce.Job:  map 100% reduce 0%
+2020-08-26 20:38:54,159 INFO mapreduce.Job: Job job_local2116349495_0001 completed successfully
+2020-08-26 20:38:54,165 INFO mapreduce.Job: Counters: 24
+        File System Counters
+                FILE: Number of bytes read=178
+                FILE: Number of bytes written=522018
+                FILE: Number of read operations=0
+                FILE: Number of large read operations=0
+                FILE: Number of write operations=0
+                HDFS: Number of bytes read=18910
+                HDFS: Number of bytes written=48878
+                HDFS: Number of read operations=10
+                HDFS: Number of large read operations=0
+                HDFS: Number of write operations=3
+                HDFS: Number of bytes read erasure-coded=0
+        Map-Reduce Framework
+                Map input records=649
+                Map output records=649
+                Input split bytes=122
+                Spilled Records=0
+                Failed Shuffles=0
+                Merged Map outputs=0
+                GC time elapsed (ms)=0
+                Total committed heap usage (bytes)=775421952
+        File Input Format Counters
+                Bytes Read=18910
+        File Output Format Counters
+                Bytes Written=48878
+        parquet
+                bytesread=18406
+                bytestotal=18406
+                timeread=15
