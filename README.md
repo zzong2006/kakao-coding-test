@@ -29,7 +29,7 @@ This is kakao coding test solutions made by Woosung Hwang.
 * 실행 방법
 
   1. Hadoop 클러스터 실행 (테스트 환경: 단일 JVM의 Pseudo-Distributed Operation)
-  2. `problem4/kakaotest04/tempJson.json` 을 자신의 환경에 맞춰서 수정
+  2. `problem4/kakaotest04/tempJson.json` 을 실행 환경에 맞춰서 수정
   3. `problem4/kakaotest04`으로 접근 후, 아래의 명령어를 실행
 
   * MySQL DB를 Parquet으로 변환
@@ -49,5 +49,23 @@ This is kakao coding test solutions made by Woosung Hwang.
     * `json`파일 (`problem4/kakaotest04/tempJson.json`)의 concurrency 값이 2이상이면 multi-threading map 가능
       * 하지만 parquet으로 변환되는 MySQL 레코드의 순서가 달라짐
       * ParquetToText 결과 `problem04/text_output/`를 통해 확인가능
+  * Parquet 파일과 Text 파일 크기 비교
+
+  ```bash
+  kakao-coding-test/problem04/parquet_output$ ls -l
+  total 28
+  -rw-r--r-- 1 woosung woosung   203  8월 26 20:36 _common_metadata
+  -rw-r--r-- 1 woosung woosung   505  8월 26 20:36 _metadata
+  -rw-r--r-- 1 woosung woosung 18914  8월 26 20:36 part-m-00000.parquet
+  -rw-r--r-- 1 woosung woosung     0  8월 26 20:36 _SUCCESS
+  
+  kakao-coding-test/problem04/text_output$ ls -l
+  total 48
+  -rw-r--r-- 1 woosung woosung 48878  8월 26 20:39 part-m-00000
+  -rw-r--r-- 1 woosung woosung     0  8월 26 20:39 _SUCCESS
+  
+  ```
+
+  
 
   
