@@ -43,7 +43,7 @@ WITH RECENT_RSDT (USR_NO, RSDT_NO) AS (               -- Find recent rsdt of use
 	SELECT USR_NO, MENU_NM, COUNT(MENU_NM) FROM MENU_LOG 
 	WHERE MENU_NM != 'logout' AND MENU_NM != 'login' 
 	GROUP BY USR_NO, MENU_NM
-), MAX_VAL (USR_NO, MAX_CNT) AS (                            -- Find the nukmber of highest access number of each users
+), MAX_VAL (USR_NO, MAX_CNT) AS (                            -- Find the number of highest access number of each users
 	SELECT USR_NO, MAX(CNT_MENU)
 	FROM COUNT_MENU 
 	GROUP BY USR_NO
